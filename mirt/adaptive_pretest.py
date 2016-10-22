@@ -28,12 +28,11 @@ class TestEngine(object):
 
     def print_current_score(self):
         """Print the current score for the current history"""
-        print "Current score is now %.4f." % (
-            self.engine.score(self.history))
+        print("Current score is now %.4f." % (self.engine.score(self.history)))
         if len(self.engine.abilities) > 1:
-            print "(mean std=%.4f, max std=%.4f)." % (
+            print(("(mean std=%.4f, max std=%.4f)." % (
                 min(self.engine.abilities_stdev),
-                max(self.engine.abilities_stdev))
+                max(self.engine.abilities_stdev))))
 
     def interactive_test(self, num_exercises=5):
         """A simple command line interface to mirt parameters."""
@@ -45,13 +44,13 @@ class TestEngine(object):
         while (not self.engine.is_complete(self.history)
                and len(self.history) < num_exercises):
             exercise = self.engine.next_suggested_item(self.history).item_id
-            print "\nQuestion #%d, Exercise type: %s" % (
-                len(self.history), exercise)
-            correct = int(raw_input("Enter 1 for correct, 0 for incorrect: "))
+            print(("\nQuestion #%d, Exercise type: %s" % (
+                len(self.history), exercise)))
+            correct = int(eval(input("Enter 1 for correct, 0 for incorrect: ")))
             correct = correct if correct == 1 else 0
             if time:
-                print "How much time did it take?"
-                time = float(raw_input("Enter time in seconds: "))
+                print("How much time did it take?")
+                time = float(eval(input("Enter time in seconds: ")))
 
             response = mirt.engine.ItemResponse.new(
                 correct=correct, exercise=exercise)
@@ -59,15 +58,15 @@ class TestEngine(object):
             self.history.append(response.data)
             self.print_current_score()
 
-            print "Progress is now %.4f." % self.engine.progress(self.history)
+            print(("Progress is now %.4f." % self.engine.progress(self.history)))
 
     def print_outcome(self):
         """Print the status of a current test that's been taken"""
-        print 'Estimated Exercise Accuracies:'
-        print json.dumps(
-            self.engine.estimated_exercise_accuracies(self.history), indent=4)
-        print 'Score:'
-        print self.engine.score(self.history)
+        print('Estimated Exercise Accuracies:')
+        print((json.dumps(
+            self.engine.estimated_exercise_accuracies(self.history), indent=4)))
+        print('Score:')
+        print((self.engine.score(self.history)))
 
 
 def main(model_file, num_exercises):

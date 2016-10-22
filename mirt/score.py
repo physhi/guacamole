@@ -29,7 +29,7 @@ class ScoreEngine(object):
 
     def print_score(self):
         """Print the current score for the current history"""
-        print self.engine.score(self.history)
+        print(self.engine.score(self.history))
 
 
 def get_student_responses(students_filepath, data_format='simple'):
@@ -69,7 +69,7 @@ def score_students(model_file, students_filepath):
     data = mirt.mirt_util.json_to_data(model_file)
     students = get_student_responses(students_filepath)
     for name, history in students:
-        print name,
+        print(name, end=' ')
         engine = ScoreEngine(mirt.mirt_engine.MIRTEngine(data))
         engine.update_history(history)
         engine.print_score()

@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6fb9da3f-9089-4230-8cd4-f143c5a39ad7}</ProjectGuid>
+    <ProjectHome />
+    <StartupFile>start_mirt_pipeline.py</StartupFile>
+    <SearchPath />
+    <WorkingDirectory>.</WorkingDirectory>
+    <OutputPath>.</OutputPath>
+    <ProjectTypeGuids>{888888a0-9f3d-457c-b088-3a5042f75d52}</ProjectTypeGuids>
+    <LaunchProvider>Standard Python launcher</LaunchProvider>
+    <InterpreterId />
+    <InterpreterVersion />
+    <CommandLineArguments>--train --data_file .\sample_data\real.responses -w 12</CommandLineArguments>
+    <EnableNativeCodeDebugging>False</EnableNativeCodeDebugging>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
+  <PropertyGroup>
+    <VisualStudioVersion Condition=" '$(VisualStudioVersion)' == '' ">10.0</VisualStudioVersion>
+    <PtvsTargetsFile>$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets</PtvsTargetsFile>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="imgs\guacamole.jpg" />
+    <Content Include="imgs\roc.png" />
+    <Content Include="imgs\sigmoids.png" />
+    <Content Include="requirements.txt" />
+    <Content Include="sample_data\exercise_names.txt" />
+    <Content Include="sample_data\names.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="mirt\adaptive_pretest.py" />
+    <Compile Include="mirt\engine.py" />
+    <Compile Include="mirt\generate_predictions.py" />
+    <Compile Include="mirt\generate_responses.py" />
+    <Compile Include="mirt\mirt_engine.py" />
+    <Compile Include="mirt\mirt_train_EM.py" />
+    <Compile Include="mirt\mirt_util.py" />
+    <Compile Include="mirt\score.py" />
+    <Compile Include="mirt\simple_engine.py" />
+    <Compile Include="mirt\visualize.py" />
+    <Compile Include="mirt\__init__.py" />
+    <Compile Include="start_mirt_pipeline.py" />
+    <Compile Include="train_util\model_training_util.py" />
+    <Compile Include="train_util\regression_util.py" />
+    <Compile Include="train_util\roc_curve_util.py" />
+    <Compile Include="train_util\__init__.py" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="imgs" />
+    <Folder Include="mirt" />
+    <Folder Include="sample_data" />
+    <Folder Include="train_util" />
+  </ItemGroup>
+  <Import Project="$(PtvsTargetsFile)" Condition="Exists($(PtvsTargetsFile))" />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="!Exists($(PtvsTargetsFile))" />
+</Project>

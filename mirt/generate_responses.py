@@ -156,7 +156,7 @@ def print_sample_data(num_students=50, num_items=10, include_time=False,
     else:
         for assessment in assessments:
             for response in assessment.response_strings():
-                print response
+                print(response)
 
 
 def run(arguments):

@@ -151,7 +151,7 @@ def write_roc_datapoint(history, evaluation_indexes, model, outfile):
 
     # If there is no evaluation index, evaluate a random response
     if not evaluation_indexes:
-        evaluation_indexes = [random.choice(range(len(history)))]
+        evaluation_indexes = [random.choice(list(range(len(history))))]
 
     # We collect all evaluation items in a list and remove them from history
     # so that we can evaluate the models accuracy untainted with information

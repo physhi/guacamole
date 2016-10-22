@@ -5,7 +5,7 @@ from collections import defaultdict
 import matplotlib.pyplot as plt
 import numpy as np
 
-import mirt_util
+from . import mirt_util
 from train_util import roc_curve_util
 
 
@@ -16,7 +16,7 @@ def show_roc(predictions):
     and values consisting of predictions made by those models.
     """
     plt.figure(1)
-    for model, classifications in predictions.iteritems():
+    for model, classifications in predictions.items():
         roc_curve_util.draw_roc_curve(model, classifications)
     roc_curve_util.add_roc_labels()
     plt.show()
@@ -39,13 +39,13 @@ def show_exercises(parameter_file):
             exercise_ind)
 
     abilities_to_plot = np.arange(-3, 3, .01)
-    exercises, indices = exercise_ind_dict.keys(), exercise_ind_dict.values()
+    exercises, indices = list(exercise_ind_dict.keys()), list(exercise_ind_dict.values())
     exercise_plots = defaultdict(list)
     for ability in abilities_to_plot:
         conditional_probs = eval_conditional_probability(
             ability,
             parameters,
-            exercise_ind_dict.values())
+            list(exercise_ind_dict.values()))
         for exercise in exercises:
             exercise_plots[exercise].append(conditional_probs[
                 exercises.index(exercise)])
@@ -62,18 +62,18 @@ def print_report(parameter_file):
     """Print interpretable results given a json file"""
     data = mirt_util.json_to_data(parameter_file)
     parameters = data['params']
-    print 'Generating Report for %s' % parameter_file
-    print "%50s\t%s\t\t" % ('Exercise', 'Bias'),
+    print('Generating Report for {0}'.format(parameter_file))
+    print("%50s\t%s\t\t" % ('Exercise', 'Bias'), end=' ')
     for i in range(parameters.num_abilities):
-        print 'Dim. %s\t' % (i + 1),
-    print
-    exercises = parameters.exercise_ind_dict.keys()
+        print('Dim. %s\t' % (i + 1), end=' ')
+    print()
+    exercises = list(parameters.exercise_ind_dict.keys())
     exercises_to_parameters = [(ex, parameters.get_params_for_exercise(ex))
                                for ex in exercises]
     # Sort by the difficulty bias
     exercises_to_parameters.sort(key=lambda x: x[-1][-1])
     for ex, param in exercises_to_parameters:
-        print "%50s\t%.4f\t" % (ex, param[-1]),
+        print("%50s\t%.4f\t" % (ex, param[-1]), end=' ')
         for p in param[:-1]:
-            print "\t%.4f\t" % p,
-        print
+            print("\t%.4f\t" % p, end=' ')
+        print()

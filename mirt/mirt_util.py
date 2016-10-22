@@ -156,7 +156,7 @@ def get_exercise_ind(exercise_names, exercise_ind_dict):
         if exercise_names[i] in exercise_ind_dict:
             inds[i] = exercise_ind_dict.get(exercise_names[i])
         else:
-            print 'Warning: Unseen exercise %s' % exercise_names[i]
+            print('Warning: Unseen exercise {0}'.format(exercise_names[i]))
             inds[i] = -1
     return inds
 
@@ -255,9 +255,18 @@ def sample_abilities_diffusion_wrapper(args):
     # make sure each student gets a different random sequence
     id = multiprocessing.current_process()._identity
     if len(id) > 0:
-        np.random.seed([id[0], time.time() * 1e9])
+        seed = time.time()
+        seedInt = int(seed)
+        seedDecimal = seed - seedInt 
+        np.random.seed(
+            np.array([id[0], seedInt, seedDecimal * 1e9]).astype(int))
+
     else:
-        np.random.seed([time.time() * 1e9])
+        seed = time.time()
+        seedInt = int(seed)
+        seedDecimal = seed - seedInt 
+        np.random.seed(
+            np.array([seedInt, seedDecimal * 1e9]).astype(int))
 
     num_steps = options.sampling_num_steps
 

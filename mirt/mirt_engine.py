@@ -1,8 +1,8 @@
 """Extend the Engine model to provide a adaptive pretest engine."""
 import numpy as np
 
-import engine
-import mirt_util
+from . import engine
+from . import mirt_util
 
 
 class MIRTEngine(engine.Engine):
@@ -116,7 +116,7 @@ class MIRTEngine(engine.Engine):
 
     def exercises(self):
         """Return the slug of all exercises as a list"""
-        return self.exercise_ind_dict.keys()
+        return list(self.exercise_ind_dict.keys())
 
     def is_complete(self, history):
         """Return True when the exercise is complete.

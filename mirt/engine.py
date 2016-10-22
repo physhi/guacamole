@@ -84,15 +84,12 @@ class ItemResponse(object):
         return utc_datetime.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-class Engine(object):
+class Engine(object, metaclass=abc.ABCMeta):
     """Abstract base class for implementations of assessment engines.
 
     Engine cannot be directly instantiated. It declares the methods that must
     be implmented by a valid assessment engine.
     """
-
-    # Abstract class; cannot be directly instantiated
-    __metaclass__ = abc.ABCMeta
 
     # Abstract methods to be implemented in the subclasses
 

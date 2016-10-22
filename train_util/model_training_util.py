@@ -70,11 +70,11 @@ class FieldIndexer(object):
 
     def get_values(self):
         """"Return each value of the FieldIndexer"""
-        return self.__dict__.values()
+        return list(self.__dict__.values())
 
     def get_keys(self):
         """Return each key of the FieldIndexer"""
-        return self.__dict__.keys()
+        return list(self.__dict__.keys())
 
     topic_attempt_fields = [
         'user', 'topic', 'exercise', 'time_done', 'time_taken',

@@ -162,7 +162,7 @@ def save_model(arguments):
     """Look at all generated models, and save the most recent to the correct
     location"""
     latest_model = get_latest_parameter_file_name(arguments)
-    print "Saving model to %s" % arguments.model
+    print(("Saving model to %s" % arguments.model))
     shutil.copyfile(latest_model, arguments.model)
 
 
@@ -234,40 +234,40 @@ def run_with_arguments(arguments):
     make_necessary_directories(arguments)
 
     if arguments.generate:
-        print 'Generating Responses'
+        print('Generating Responses')
         generate_responses.run(arguments)
-        print 'Generated responses for %d students and %d problems' % (
-            arguments.num_students, arguments.num_problems)
+        print(('Generated responses for %d students and %d problems' % (
+            arguments.num_students, arguments.num_problems)))
     if arguments.train:
         # Only re-separate into test and train when resume_from_file
         # is False.
         # Separate provided data file into a train and test set.
         model_training_util.sep_into_train_and_test(arguments)
 
-        print 'Training MIRT models'
+        print('Training MIRT models')
         generate_model_with_parameters(arguments)
         save_model(arguments)
 
     if arguments.roc_viz:
-        print 'Generating ROC for %s' % arguments.model
+        print(('Generating ROC for %s' % arguments.model))
         roc_curve = generate_roc_curve_from_model(arguments)
-        print 'Visualizing roc for %s' % arguments.model
+        print(('Visualizing roc for %s' % arguments.model))
         visualize.show_roc({params: [r for r in roc_curve]})
 
     if arguments.sigmoid_viz:
-        print 'Visualizing sigmoids for %s' % arguments.model
+        print(('Visualizing sigmoids for %s' % arguments.model))
         visualize.show_exercises(arguments.model)
 
     if arguments.test:
-        print 'Starting adaptive pretest'
+        print('Starting adaptive pretest')
         adaptive_pretest.main(arguments.model, arguments.items)
 
     if arguments.report:
-        print "Generating problems report based on params file."
+        print("Generating problems report based on params file.")
         visualize.print_report(arguments.model)
 
     if arguments.score:
-        print "Scoring all students based on trained test file"
+        print("Scoring all students based on trained test file")
         score.score_students(arguments.model, arguments.data_file)
 
 if __name__ == '__main__':

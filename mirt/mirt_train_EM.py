@@ -139,7 +139,7 @@ def emit_features(user_states, theta, options, split_desc):
         exercise_ind = user_state['exercise_ind']
 
         # NOTE: I currently do not output features for the first problem
-        for i in xrange(1, correct.size):
+        for i in range(1, correct.size):
 
             # TODO(jace) this should probably be the marginal estimation
             _, _, abilities, _ = mirt_util.sample_abilities_diffusion(
